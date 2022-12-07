@@ -1,0 +1,88 @@
+.container  {
+    position: relative;
+    max-width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #080844;
+
+  }
+ 
+ /* Style buttons */
+.btn{
+    background-color: rgb(106, 85, 175);
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  /* Darker background on mouse-over */
+  .btn {
+    background-color: rgb(168, 25, 111);
+  }
+
+#box-container{
+    margin-left: 25px;
+}
+
+
+ #first-box{
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(230, 230, 250, 0.8);
+    box-shadow: 2px 2px 3px rgba(155, 163, 199, 0.75);
+    display: inline-block;
+    border-width: 10px;
+    padding: 1em;
+    border-radius: 0.3em;
+    height: 70px;
+  }
+
+#second-box{
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(230, 230, 250, 0.8);
+    box-shadow: 2px 2px 3px rgba(155, 163, 199, 0.75);
+    display: inline-block;
+    border-width: 10px;
+    padding: 1em;
+    border-radius: 0.3em;
+    height: 70px;
+  }
+
+#third-box{
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(230, 230, 250, 0.8);
+    box-shadow: 2px 2px 3px rgba(155, 163, 199, 0.75);
+    display: inline-block;
+    border-width: 10px;
+    padding: 1em;
+    border-radius: 0.3em;
+    height: 70px;
+  }
+
+
+  .card-title {
+    font-weight: lighter;
+    color:blue;
+    font-size: 14px;
+    font-family: sans-serif;  
+    margin-top: 0;
+    margin-bottom: 9px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .card-text {
+    color: blue;
+    display: block;
+    align-content: center;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
