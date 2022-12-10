@@ -7,6 +7,9 @@ import warnings
 import plotly.figure_factory as ff
 
 def blank_figure():
+    """ 
+    Function that takes no parameters and returns a completely ampty figure
+    """
     fig = go.Figure(go.Scatter(x=[], y = []))
     fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',
                       plot_bgcolor='rgba(0,0,0,0)')
@@ -17,6 +20,25 @@ def blank_figure():
 
 
 def all_combinations(nodes, edges, categories=['Influencers', 'Followers', 'Bridges', 'Neutrals', 'None']):
+    """
+    Calculate all the necessary parameters and figures for all the combinations
+    of countries and professions, and figures with different node categories.
+
+    Parameters
+    ----------
+    nodes : pandas dataframe
+        
+    edges :pandas dataframe
+        
+    categories : list
+         (Default value = ['Influencers', 'Followers', 'Bridges', 'Neutrals', 'None'])
+
+    Returns
+    -------
+    Dictionary with countries as keys, and in values, we have the professions as keys.
+    In values, we have the main parameter names as keys and their values as values.
+    {country1: {profession1: {key1: value1, key2: value2, ..}, profession2: {}, ...}, country2: {},... }
+    """
     countries = np.concatenate((np.array(['All']), nodes["Country"].unique()), axis=None)
     blank_fig = blank_figure()
 
@@ -90,6 +112,27 @@ def all_combinations(nodes, edges, categories=['Influencers', 'Followers', 'Brid
 
 
 def other_combinations(nodes, edges, start_date, end_date, categories=['Influencers', 'Followers', 'Bridges', 'Neutrals', 'None']):
+    """
+    Function which calculates all the necessary parameters and 
+    figures for specific countries, professions and also date
+
+    Parameters
+    ----------
+    nodes : pandas dataframe
+        
+    edges : pandas dataframe
+        
+    start_date : date
+        
+    end_date : date
+        
+    categories : list
+         (Default value = ['Influencers', 'Followers', 'Bridges', 'Neutrals', 'None'])
+
+    Returns
+    -------
+    Returns a dictionary of main parameters as names, and their values as values
+    """
     blank_fig = blank_figure()
     nodes = nodes[(start_date <= nodes['Date']) & (nodes['Date'] <= end_date)]
     ids = nodes["User_ID"]
@@ -123,6 +166,27 @@ def other_combinations(nodes, edges, start_date, end_date, categories=['Influenc
 
 # function for calculating top N degree/closeness/betweenness/eigenvector centralities
 def top_N(graph, n, degree=False, close=False, between=False):
+    """
+    Return top n nodes with highest centrality measure of the given type.
+
+    Parameters
+    ----------
+    graph : graph
+        
+    n : int
+        
+    degree : bool
+        (Default value = False)
+    close : bool
+        (Default value = False)
+    between : bool
+        (Default value = False)
+
+    Returns
+    -------
+    List of nodes
+
+    """
     if degree == True:
         word = "Degree"
         measures = nx.degree_centrality(graph)
@@ -144,6 +208,19 @@ def top_N(graph, n, degree=False, close=False, between=False):
 
 
 def find_influancers(G):
+    """ 
+    Find influencers in the network
+
+    Parameters
+    ----------
+    G : graph
+        
+
+    Returns
+    -------
+    List of nodes
+    
+    """
     # calculating the number of nodes in our data
     nodes = G.number_of_nodes()
     # changing the number of top nodes depending on the number of nodes
@@ -168,7 +245,20 @@ def find_influancers(G):
 
 
 def find_followers(G):    
-     # calculating the number of nodes in our data
+    """ 
+    Find followers in the network
+
+    Parameters
+    ----------
+    G : graph
+        
+
+    Returns
+    -------
+    List of nodes
+
+    """
+    # calculating the number of nodes in our data
     nodes = G.number_of_nodes()
     # changing the number of top nodes depending on the number of nodes
     if nodes <= 50:
@@ -199,6 +289,19 @@ def find_followers(G):
 
 
 def find_bridges(G):
+    """ 
+    Find followers in the network. These are the nodes that connect the communities.
+
+    Parameters
+    ----------
+    G : graph
+        
+
+    Returns
+    -------
+    List of nodes
+    
+    """
     # calculating the number of nodes in our data
     nodes = G.number_of_nodes()
     # changing the number of top nodes depending on the number of nodes
@@ -218,6 +321,19 @@ def find_bridges(G):
 
 
 def find_neutrals(G):
+    """
+    Find neutrals in the network.
+
+    Parameters
+    ----------
+    G : graph
+        
+
+    Returns
+    -------
+    List of nodes
+    
+    """
     # finding influencers, followers, and bridges
     G_infl = find_influancers(G)
     G_foll = find_followers(G)
@@ -233,6 +349,22 @@ def find_neutrals(G):
 
 
 def return_nodes(G, word):
+    """
+    Find the nodes with the specified role in the network
+
+    Parameters
+    ----------
+    G : graph
+        
+    word : str
+        
+
+    Returns
+    -------
+
+    List of nodes
+    
+    """
 
     if word == 'Influencers':
         nodes = find_influancers(G)
@@ -254,6 +386,24 @@ def return_nodes(G, word):
 
 
 def plot_graph(G, coloring_nodes, nodes_left):
+    """
+    Plot the graph coloring the specifies nodes with different color.
+
+    Parameters
+    ----------
+    G : graph
+        
+    coloring_nodes : list
+        
+    nodes_left : pandas dataframe
+        
+
+    Returns
+    -------
+    Dictionary of figure
+
+    
+    """
     
     pos = nx.spring_layout(G, seed=1111)
     
@@ -321,6 +471,19 @@ def plot_graph(G, coloring_nodes, nodes_left):
 
 
 def betweenness_dist_plot(G):
+    """ 
+    Plot the distribution of betweenness centrality measures
+
+    Parameters
+    ----------
+    G : graph
+        
+
+    Returns
+    -------
+    Dictioanry
+    
+    """
     warnings.filterwarnings('ignore')
     betweenness_dict = nx.betweenness_centrality(G) 
     betweenness = list(betweenness_dict.values())
@@ -342,6 +505,19 @@ def betweenness_dist_plot(G):
 
 
 def closeness_dist_plot(G):
+    """
+    Plot the distribution of closeness centrality measures
+
+    Parameters
+    ----------
+    G : graph
+        
+
+    Returns
+    -------
+    Dictionary
+
+    """
     warnings.filterwarnings('ignore')
     closeness_dict = nx.closeness_centrality(G)
     closeness = list(closeness_dict.values())
@@ -362,6 +538,19 @@ def closeness_dist_plot(G):
 
 
 def degree_dist_plot(G):
+    """
+    Plot the distribution of degree centrality measures
+
+    Parameters
+    ----------
+    G : graph
+        
+
+    Returns
+    -------
+    Dictionary
+
+    """
     warnings.filterwarnings('ignore')
     degree_dict = nx.degree_centrality(G)
     degree = list(degree_dict.values())
@@ -382,6 +571,19 @@ def degree_dist_plot(G):
 
     
 def eigenvector_dist_plot(G):
+    """
+    Plot the distribution of eigenvector centrality measures
+
+    Parameters
+    ----------
+    G : graph
+        
+
+    Returns
+    -------
+    Dictionary
+
+    """
     warnings.filterwarnings('ignore')
     eigenvector_dict = nx.eigenvector_centrality(G, max_iter=900)
     eigenvector = list(eigenvector_dict.values())
