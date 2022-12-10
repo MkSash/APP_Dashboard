@@ -3,6 +3,7 @@ import networkx as nx
 import numpy as np
 import plotly.graph_objs as go
 from heapq import nlargest
+import warnings
 import plotly.figure_factory as ff
 
 def blank_figure():
