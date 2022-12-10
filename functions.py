@@ -3,7 +3,6 @@ import networkx as nx
 import numpy as np
 import plotly.graph_objs as go
 from heapq import nlargest
-import warnings
 import plotly.figure_factory as ff
 
 def blank_figure():
@@ -89,7 +88,7 @@ def all_combinations(nodes, edges, categories=['Influencers', 'Followers', 'Brid
     return combs
 
 
-def return_graph(nodes, edges, start_date, end_date, categories=['Influencers', 'Followers', 'Bridges', 'Neutrals', 'None']):
+def other_combinations(nodes, edges, start_date, end_date, categories=['Influencers', 'Followers', 'Bridges', 'Neutrals', 'None']):
     blank_fig = blank_figure()
     nodes = nodes[(start_date <= nodes['Date']) & (nodes['Date'] <= end_date)]
     ids = nodes["User_ID"]
